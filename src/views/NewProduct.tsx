@@ -1,7 +1,14 @@
 import { Link, Form, useActionData } from "react-router-dom";
 
-export async function action({ request }) {
-  const data = Object.fromEntries(await request.formData());
+interface ActionData {
+  request: Request;
+}
+
+export async function action({ request }: ActionData) {
+  const data = Object.fromEntries(await request.formData()) as Record<
+    string,
+    string
+  >;
 
   let error = "";
   if (Object.values(data).includes("")) {
@@ -15,7 +22,7 @@ export async function action({ request }) {
 }
 
 function NewProduct() {
-  const error = useActionData();
+  const error = useActionData() as { error?: string } | undefined;
   console.log(error);
 
   return (
