@@ -1,14 +1,13 @@
-import { Link, Form, useActionData } from "react-router-dom";
+import {
+  Link,
+  Form,
+  useActionData,
+  ActionFunctionArgs,
+} from "react-router-dom";
+import ErrorMessage from "../components/ErrorMessage";
 
-interface ActionData {
-  request: Request;
-}
-
-export async function action({ request }: ActionData) {
-  const data = Object.fromEntries(await request.formData()) as Record<
-    string,
-    string
-  >;
+export async function action({ request }: ActionFunctionArgs) {
+  const data = Object.fromEntries(await request.formData());
 
   let error = "";
   if (Object.values(data).includes("")) {
@@ -22,8 +21,7 @@ export async function action({ request }: ActionData) {
 }
 
 function NewProduct() {
-  const error = useActionData() as { error?: string } | undefined;
-  console.log(error);
+  const error = useActionData() as string;
 
   return (
     <>
@@ -38,6 +36,8 @@ function NewProduct() {
           Volver a Producto
         </Link>
       </div>
+
+      {error && <ErrorMessage>{error}</ErrorMessage>}
 
       <Form className="mt-10" method="POST">
         <div className="mb-4">
