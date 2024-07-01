@@ -30,7 +30,13 @@ function ProductDetails({ product }: ProductDetailsProps) {
             Editar
           </Link> */}
           <button
-            onClick={() => navigate(`/productos/${product.id}/editar`)}
+            onClick={() =>
+              navigate(`/productos/${product.id}/editar`, {
+                state: {
+                  product,
+                },
+              })
+            }
             className="bg-indigo-600 text-white rounded-lg w-full p-2 uppercase font-bold text-xs text-center"
           >
             Editar
