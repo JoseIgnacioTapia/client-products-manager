@@ -3,7 +3,10 @@ import type { Router } from "@remix-run/router"; // Import the Router type after
 import Layout from "./layouts/Layout";
 import Products, { loader as productsLoader } from "./views/Products";
 import NewProduct, { action as newProductAction } from "./views/NewProduct";
-import EditProduct, { loader as editProductLoader } from "./views/EditProduct";
+import EditProduct, {
+  loader as editProductLoader,
+  action as editProductAction,
+} from "./views/EditProduct";
 
 export const router: Router = createBrowserRouter([
   {
@@ -24,6 +27,7 @@ export const router: Router = createBrowserRouter([
         path: "productos/:id/editar",
         element: <EditProduct />,
         loader: editProductLoader,
+        action: editProductAction,
       },
     ],
   },
